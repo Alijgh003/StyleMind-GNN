@@ -63,7 +63,8 @@ for i in range(0, len(items_df), 2000):
   print("storing vectors")
   if(i==0):
       with h5py.File("image2vec.h5", "w") as f:
-        f.create_dataset("embeddings", data=image_embedding)
+        f.create_dataset("embeddings", data=image_embedding, 
+                     maxshape=(None, image_embedding.shape[-1]), chunks=True)
   else:
       append_vectors(image_embedding)    
   print(f'vectors of elementes:[{j},{k}] has been stored.')
